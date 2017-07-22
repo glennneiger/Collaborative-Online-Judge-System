@@ -5,7 +5,7 @@ const DEFAULT_PROBLEM: Problem = Object.freeze({
   id: 0,
   name: '',
   desc: '',
-  difficulty: ''
+  difficulty: 'Easy'
 });
 @Component({
   selector: 'app-new-problem',
@@ -13,7 +13,7 @@ const DEFAULT_PROBLEM: Problem = Object.freeze({
   styleUrls: ['./new-problem.component.css']
 })
 export class NewProblemComponent implements OnInit {
-  difficulties: string[] = ['easy', 'medium', 'hard', 'super'];
+  difficulties: string[] = ['Easy', 'Medium', 'Hard', 'Super'];
   newProblem: Problem = Object.assign({}, DEFAULT_PROBLEM);
 
   constructor(@Inject('data') private data) { }
@@ -22,7 +22,8 @@ export class NewProblemComponent implements OnInit {
   }
 
   addProblem() {
-    this.data.addProblem(this.addProblem);
+    this.data.addProblem(this.newProblem);
+    this.newProblem = Object.assign({}, DEFAULT_PROBLEM);
   }
 
 }
