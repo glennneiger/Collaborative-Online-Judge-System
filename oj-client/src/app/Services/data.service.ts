@@ -16,4 +16,8 @@ export class DataService {
     return this.problems.find((problem) => problem.id == id);
   }
 
+  addProblem() {
+    
+  }
+
 }
