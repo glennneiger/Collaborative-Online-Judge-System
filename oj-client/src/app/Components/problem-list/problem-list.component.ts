@@ -7,12 +7,18 @@ import { Problem } from '../../data-structure/problem';
   styleUrls: ['./problem-list.component.css']
 })
 export class ProblemListComponent implements OnInit {
-  problems: Problem[];
+  problems: Problem[] = [];
 
-  constructor(@Inject('data') private dataService) { }
+  constructor( @Inject('data') private dataService) { }
 
   ngOnInit() {
-    this.problems = this.dataService.getProblems();
+    this.getProblems();
+  }
+
+  getProblems() {
+    // this.problems = this.dataService.getProblems();
+    this.dataService.getProblems()
+    .subscribe((problems: Problem[]) => this.problems = problems);
   }
 
 }
