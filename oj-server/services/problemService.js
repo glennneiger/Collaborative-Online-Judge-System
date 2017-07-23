@@ -12,7 +12,7 @@ const getProblems = function() {
     });
 };
 
-const getProblem = function () {
+const getProblem = function (id) {
     return new Promise((resolve, reject) => {
         ProblemModel.findOne({ id: id }, (err, problem) => {
             if (err) {

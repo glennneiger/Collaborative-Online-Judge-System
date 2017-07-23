@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 const restRouter = require('./routes/rest');
+const indexRouter = require('./routes/index');
 
 const db_username = 'diwang_COJDB';
 const db_password = '88888888';
@@ -12,6 +13,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 });
 
+app.use('/', indexRouter);
 app.use('api/v1', restRouter);
 
 app.listen(3000, function () {
