@@ -333,21 +333,16 @@ var DataService = (function () {
     }
     DataService.prototype.getProblems = function () {
         var _this = this;
-        // return this.problems;
         this.http.get('api/v1/problems')
             .toPromise()
-            .then(function (res) {
-            _this._problemSource.next(res.json());
-        })
+            .then(function (res) { return _this._problemSource.next(res.json()); })
             .catch(this.handleError);
         return this._problemSource.asObservable();
     };
     DataService.prototype.getProblem = function (id) {
-        this.http.get("api/v1/problems/" + id)
+        return this.http.get("api/v1/problems/" + id)
             .toPromise()
-            .then(function (res) {
-            return res.json();
-        })
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     DataService.prototype.addProblem = function (problem) {
@@ -357,6 +352,7 @@ var DataService = (function () {
         return this.http.post('api/v1/problems', problem, options)
             .toPromise()
             .then(function (res) {
+            // to update problem-list
             _this.getProblems();
             return res.json();
         })

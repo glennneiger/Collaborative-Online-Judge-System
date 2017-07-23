@@ -14,22 +14,17 @@ export class DataService {
   constructor(private http: Http) { }
 
   getProblems(): Observable<Problem[]> {
-    // return this.problems;
     this.http.get('api/v1/problems')
             .toPromise()
-            .then((res: Response) => {
-              this._problemSource.next(res.json());
-            })
+            .then((res: Response) => this._problemSource.next(res.json()))
             .catch(this.handleError);
     return this._problemSource.asObservable();            
   }
 
   getProblem(id: number) {
-    this.http.get(`api/v1/problems/${id}`)
+    return this.http.get(`api/v1/problems/${id}`)
           .toPromise()
-          .then((res: Response) => {
-            return res.json();
-          })
+          .then((res: Response) => res.json())
           .catch(this.handleError);
   }
 
@@ -39,6 +34,7 @@ export class DataService {
     return this.http.post('api/v1/problems', problem, options)
                   .toPromise()
                   .then((res: Response) => {
+                    // to update problem-list
                     this.getProblems();
                     return res.json();
                   })
