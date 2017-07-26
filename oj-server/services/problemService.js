@@ -41,8 +41,28 @@ const addProblem = function (newProblem) {
     })
 };
 
+const deleteProblem = function (id) {
+    return new Promise((resolve, reject) => {
+        ProblemModel.findOneAndRemove({ id: id }, (err, problem) => {
+            if (err) {
+                reject('Cannot find problem to delete');
+            } else {
+                // update the problem's id
+                ProblemModel.updateMany({ id: { $gt: id } }, { $inc: { id: -1 } }, (err, problems) => {
+                    if (err) {
+                        reject(err);
+                    } else {                                                
+                        resolve(problems);
+                    }
+                });
+            }
+        });
+    })
+}
+
 module.exports = {
     getProblems,
     getProblem,
-    addProblem
+    addProblem,
+    deleteProblem
 };

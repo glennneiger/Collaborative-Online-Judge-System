@@ -236,7 +236,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".difficulty {\n  min-width: 65px;\n  margin-right: 10px;\n}\n\n.label.difficulty {\n  padding-top: 0.6em;\n  color: #fbfdfa;\n  font-size: 12px;\n}\n\n.title {\n  font-size: 1.2em;\n}\n\n.diff-easy {\n  background-color: #42ebf4;\n}\n\n.diff-medium {\n  background-color: #92cf5c;\n}\n\n.diff-hard {\n  background-color: #dd0d1e;\n}\n\n.diff-super {\n  background-color: #8d16e2;\n}", ""]);
+exports.push([module.i, ".difficulty {\n  min-width: 65px;\n  margin-right: 10px;\n}\n\n.label.difficulty {\n  padding-top: 0.6em;\n  color: #fbfdfa;\n  font-size: 12px;\n}\n\n.title {\n  font-size: 1.2em;\n}\n\n.diff-easy {\n  background-color: #42ebf4;\n}\n\n.diff-medium {\n  background-color: #92cf5c;\n}\n\n.diff-hard {\n  background-color: #dd0d1e;\n}\n\n.diff-super {\n  background-color: #8d16e2;\n}\n\n.remove-problem {\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -249,7 +249,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/problem-list/problem-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <app-navbar></app-navbar>\n    <app-new-problem></app-new-problem>\n\n    <div class=\"list-group\">\n        <a class=\"list-group-item\" [routerLink]=\"['/problems', problem.id]\" *ngFor=\"let problem of problems\">\n            <span class=\"{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}\">{{ problem.difficulty }}</span>\n            <strong class=\"title\">{{ problem.id }}. {{ problem.name }}</strong>\n        </a>\n    </div>\n</div>"
+module.exports = "<div class=\"container\">\n    <app-navbar></app-navbar>\n    <app-new-problem></app-new-problem>\n\n    <div class=\"list-group\">\n        <div class=\"list-group-item\" *ngFor=\"let problem of problems; let i = index\">\n            <a [routerLink]=\"['/problems', problem.id]\">\n                <span class=\"{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}\">{{ problem.difficulty }}</span>\n                <strong class=\"title\">{{ problem.id }}. {{ problem.name }}</strong>        \n            </a>\n            <span class=\"glyphicon glyphicon-remove pull-right remove-problem\"\n                  (click)=\"deleteProblem(i)\"></span>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -282,9 +282,12 @@ var ProblemListComponent = (function () {
     };
     ProblemListComponent.prototype.getProblems = function () {
         var _this = this;
-        // this.problems = this.dataService.getProblems();
         this.dataService.getProblems()
             .subscribe(function (problems) { return _this.problems = problems; });
+    };
+    ProblemListComponent.prototype.deleteProblem = function (index) {
+        this.dataService.deleteProblem(this.problems[index])
+            .catch(function (error) { return console.log(error); });
     };
     return ProblemListComponent;
 }());
@@ -353,6 +356,17 @@ var DataService = (function () {
             .toPromise()
             .then(function (res) {
             // to update problem-list
+            _this.getProblems();
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    DataService.prototype.deleteProblem = function (problem) {
+        var _this = this;
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ params: { id: problem.id } });
+        return this.http.delete("api/v1/problems/" + problem.id, options)
+            .toPromise()
+            .then(function (res) {
             _this.getProblems();
             return res.json();
         })

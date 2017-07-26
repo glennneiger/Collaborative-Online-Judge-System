@@ -41,6 +41,19 @@ export class DataService {
                   .catch(this.handleError);
   }
 
+  deleteProblem(problem: Problem) {
+    const options = new RequestOptions(
+      { params: { id: problem.id } }
+    );
+    return this.http.delete(`api/v1/problems/${problem.id}`, options)
+                  .toPromise()
+                  .then((res: Response) => {
+                    this.getProblems();
+                    return res.json();
+                  })
+                  .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.log('An error occured', error);
     return Promise.reject(error);
