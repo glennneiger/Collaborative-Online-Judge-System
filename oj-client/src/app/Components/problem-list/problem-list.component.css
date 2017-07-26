@@ -28,3 +28,7 @@
 .diff-super {
   background-color: #8d16e2;
 }
+
+.remove-problem {
+  cursor: pointer;
+}

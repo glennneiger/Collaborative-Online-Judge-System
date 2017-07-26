@@ -27,7 +27,17 @@ router.post('/problems', jsonParser, function (req, res) {
         res.json(problem);
     }, function (err) {
         res.status(400).send('Problem name already exist');
-    })    
+    });    
+});
+
+// DELETE /api/v1/problems/:id
+router.delete('/problems/:id', function (req, res) {
+    ProblemService.deleteProblem(req.params.id)
+    .then(function (problems) {
+        res.json(problems);
+    }, function (err) {
+        res.status(400).send('Cannot find problem to delete');
+    });
 });
 
 module.exports = router;

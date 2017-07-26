@@ -9,16 +9,20 @@ import { Problem } from '../../data-structure/problem';
 export class ProblemListComponent implements OnInit {
   problems: Problem[] = [];
 
-  constructor( @Inject('data') private dataService) { }
+  constructor(@Inject('data') private dataService) { }
 
   ngOnInit() {
     this.getProblems();
   }
 
   getProblems() {
-    // this.problems = this.dataService.getProblems();
     this.dataService.getProblems()
     .subscribe((problems: Problem[]) => this.problems = problems);
+  }
+
+  deleteProblem(index: number) {
+    this.dataService.deleteProblem(this.problems[index])        
+        .catch(error => console.log(error));
   }
 
 }

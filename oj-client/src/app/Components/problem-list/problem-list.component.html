@@ -3,9 +3,13 @@
     <app-new-problem></app-new-problem>
 
     <div class="list-group">
-        <a class="list-group-item" [routerLink]="['/problems', problem.id]" *ngFor="let problem of problems">
-            <span class="{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}">{{ problem.difficulty }}</span>
-            <strong class="title">{{ problem.id }}. {{ problem.name }}</strong>
-        </a>
+        <div class="list-group-item" *ngFor="let problem of problems; let i = index">
+            <a [routerLink]="['/problems', problem.id]">
+                <span class="{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}">{{ problem.difficulty }}</span>
+                <strong class="title">{{ problem.id }}. {{ problem.name }}</strong>        
+            </a>
+            <span class="glyphicon glyphicon-remove pull-right remove-problem"
+                  (click)="deleteProblem(i)"></span>
+        </div>
     </div>
 </div>
