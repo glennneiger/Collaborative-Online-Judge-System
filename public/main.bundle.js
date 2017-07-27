@@ -13,6 +13,67 @@ webpackEmptyContext.id = "../../../../../src async recursive";
 
 /***/ }),
 
+/***/ "../../../../../src/app/Components/editor/editor.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/Components/editor/editor.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  editor works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/Components/editor/editor.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditorComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var EditorComponent = (function () {
+    function EditorComponent() {
+    }
+    EditorComponent.prototype.ngOnInit = function () {
+    };
+    return EditorComponent;
+}());
+EditorComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+        selector: 'app-editor',
+        template: __webpack_require__("../../../../../src/app/Components/editor/editor.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/Components/editor/editor.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], EditorComponent);
+
+//# sourceMappingURL=editor.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/Components/navbar/navbar.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -174,7 +235,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/problem-detail/problem-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" *ngIf=\"problem\">\n  <app-navbar></app-navbar>\n  <div class=\"col-xs-12 col-md-6\">\n    <h2>{{ problem.id }}. {{ problem.name }}</h2>\n    <p>{{ problem.desc }}</p>\n  </div>\n</div>"
+module.exports = "<div class=\"container\" *ngIf=\"problem\">\n  <app-navbar></app-navbar>\n  <div class=\"col-xs-12 col-md-4\">\n    <h2>{{ problem.id }}. {{ problem.name }}</h2>\n    <p>{{ problem.desc }}</p>\n  </div>\n  <div class=\"hidden-xs col-xs-12 col-md-8\">\n    <app-editor></app-editor>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -459,6 +520,7 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Components_navbar_navbar_component__ = __webpack_require__("../../../../../src/app/Components/navbar/navbar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Components_new_problem_new_problem_component__ = __webpack_require__("../../../../../src/app/Components/new-problem/new-problem.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Components_editor_editor_component__ = __webpack_require__("../../../../../src/app/Components/editor/editor.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -479,6 +541,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = (function () {
     function AppModule() {
     }
@@ -491,7 +554,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_5__Components_problem_list_problem_list_component__["a" /* ProblemListComponent */],
             __WEBPACK_IMPORTED_MODULE_6__Components_problem_detail_problem_detail_component__["a" /* ProblemDetailComponent */],
             __WEBPACK_IMPORTED_MODULE_9__Components_navbar_navbar_component__["a" /* NavbarComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__Components_new_problem_new_problem_component__["a" /* NewProblemComponent */]
+            __WEBPACK_IMPORTED_MODULE_10__Components_new_problem_new_problem_component__["a" /* NewProblemComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__Components_editor_editor_component__["a" /* EditorComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],

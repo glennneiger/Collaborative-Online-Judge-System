@@ -14,6 +14,7 @@ import { DataService } from './Services/data.service';
 import { routing } from './app.routes';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { NewProblemComponent } from './Components/new-problem/new-problem.component';
+import { EditorComponent } from './Components/editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NewProblemComponent } from './Components/new-problem/new-problem.compon
     ProblemListComponent,
     ProblemDetailComponent,
     NavbarComponent,
-    NewProblemComponent
+    NewProblemComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
