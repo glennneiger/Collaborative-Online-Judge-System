@@ -21,7 +21,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "@media screen {\n #editor { \n   height: 600px; \n } \n .lang-select { \n   width: 150px; \n   margin-left: -15px;\n   margin-right: 10px; \n } \n header .btn { \n   margin: 0 5px; \n } \n footer .btn { \n   margin: 0 5px; \n } \n .editor-footer, .editor-header { \n   margin: 10px 0; \n } \n .cursor { \n   /*position:absolute;*/ \n   background: rgba(0, 250, 0, 0.5); \n   z-index: 40; \n   width: 2px!important \n } \n}", ""]);
 
 // exports
 
@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/editor/editor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  editor works!\n</p>\n"
+module.exports = "<section>\n  <header>\n    <!-- dropdown for selecting languages -->\n    <select name=\"language\" \n            id=\"language\" \n            class=\"form-control pull-left lang-select row\"\n            [(ngModel)]=\"language\"\n            (change)=\"resetEditor()\">\n            <option *ngFor=\"let language of languages\"\n                    [value]=\"language\">\n              {{ language }}\n            </option>\n    </select>\n\n    <!-- Button trigger modal -->\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\">\n      <span class=\"glyphicon glyphicon-refresh\" aria-hidden=\"true\"></span>\n    </button>\n\n    <!-- Modal -->\n    <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n      <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span>\n            </button>\n            <h4 class=\"modal-title\" id=\"myModalLabel\">Reset</h4>\n          </div>\n          <div class=\"modal-body\">\n            Are you sure you want to reset your code?\n          </div>\n          <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"resetEditor()\">Reset</button>\n            <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </header>\n  <div class=\"row\">\n      <div id=\"editor\"></div>\n  </div>\n  <footer>\n    <button class=\"btn btn-success pull-right\">\n      Submit Solution\n    </button>\n  </footer>\n</section>"
 
 /***/ }),
 
@@ -56,8 +56,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var EditorComponent = (function () {
     function EditorComponent() {
+        this.language = 'Java';
+        this.languages = ['Java', 'Python', 'JavaScript'];
+        this.defaultContent = {
+            'Java': "public class Solution {\n  public static void main(String[] args) {\n    // Type your Java Code here\n  }\n}",
+            'Python': "class Solution:\n  def solution(): \n    # Write your Python Code here\n",
+            'JavaScript': "class Solution {\n  // Type your JavaScript Code here\n}"
+        };
     }
     EditorComponent.prototype.ngOnInit = function () {
+        this.initEditor();
+    };
+    EditorComponent.prototype.initEditor = function () {
+        this.editor = ace.edit("editor");
+        this.editor.setTheme("ace/theme/eclipse");
+        this.resetEditor();
+    };
+    EditorComponent.prototype.resetEditor = function () {
+        this.editor.getSession().setMode("ace/mode/" + this.language.toLocaleLowerCase());
+        this.editor.setValue(this.defaultContent[this.language]);
     };
     return EditorComponent;
 }());
