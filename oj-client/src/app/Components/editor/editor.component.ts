@@ -60,6 +60,13 @@ export class EditorComponent implements OnInit {
         this.collaboration.change(JSON.stringify(e));
       }
     })
+
+    // cursor movement
+    this.editor.getSession().getSelection().on('changeCursor', () => {
+      const cursor = this.editor.getSession().getSelection().getCursor();
+      console.log('cursor move', JSON.stringify(cursor));
+      this.collaboration.cursorMove(JSON.stringify(cursor));
+    });
   }
 
   resetEditor(): void {
@@ -71,5 +78,6 @@ export class EditorComponent implements OnInit {
     const userCodes = this.editor.getValue();
     console.log(userCodes);
   }
+
 
 }

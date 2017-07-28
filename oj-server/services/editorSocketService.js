@@ -15,17 +15,30 @@ module.exports = function (io) {
 
         // event listeners 
         socket.on('change', delta => {
-            const sessionId = socketIdToSessionId[socket.id];
-            if (sessionId in collaborations) {
-                const participants = collaborations[sessionId]['participants'];
-                for (let participant of participants) {
-                    if (socket.id != participant) {
-                        io.to(participant).emit('change', delta);
-                    }
-                }
-            } else {
-                console.log('You have a bug');
-            }
+            console.log('change ' + socketIdToSessionId[socket.id] + ' ' + delta);
+            forwardEvent(socket.id, 'change', delta);
         });
+
+        socket.on('cursorMove', (cursor) => {
+            console.log('change ' + socketIdToSessionId[socket.id] + ' ' + cursor);
+            cursor = JSON.parse(cursor);
+            cursor['socketId'] = socket.id;
+            forwardEvent(socket.id, 'cursorMove', JSON.stringify(cursor));
+        });
+ 
     });
+
+    const forwardEvent = function (socketId, eventName, dataString) {
+        const sessionId = socketIdToSessionId[socketId];
+        if (sessionId in collaborations) {
+            const participants = collaborations[sessionId]['participants'];
+            for (let participant of participants) {
+                if (socketId != participant) {
+                    io.to(participant).emit(eventName, dataString);
+                }
+            }
+        } else {
+            console.log('You have a bug');
+        }
+    }
 }
