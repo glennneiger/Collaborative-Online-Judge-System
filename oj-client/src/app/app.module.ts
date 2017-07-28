@@ -9,6 +9,7 @@ import { ProblemDetailComponent } from './Components/problem-detail/problem-deta
 
 // Service import 
 import { DataService } from './Services/data.service';
+import { CollaborationService } from './Services/collaboration.service';
 
 // routing import 
 import { routing } from './app.routes';
@@ -35,7 +36,8 @@ import { EditorComponent } from './Components/editor/editor.component';
     {
       provide: 'data',
       useClass: DataService
-    }
+    },
+    CollaborationService
   ],
   bootstrap: [AppComponent]
 })

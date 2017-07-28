@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { CollaborationService } from 'app/Services/collaboration.service';
 
 declare const ace: any;
 @Component({
@@ -10,10 +12,12 @@ export class EditorComponent implements OnInit {
   editor: any;
   language: string = 'Java';
   languages: string[] = ['Java', 'Python', 'JavaScript'];
+  sessionId: string;
   defaultContent = {
 'Java': `public class Solution {
   public static void main(String[] args) {
     // Type your Java Code here
+
   }
 }`,
 'Python': `class Solution:
@@ -22,24 +26,50 @@ export class EditorComponent implements OnInit {
 `,
 'JavaScript': `class Solution {
   // Type your JavaScript Code here
+
 }`
-  }
+  };
   
-  constructor() { }
+  constructor(
+    private collaboration: CollaborationService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.initEditor();
+    this.route.params.subscribe(params => {
+      this.sessionId = params['id'];
+      this.initEditor();
+    });
   }
 
   initEditor(): void {
     this.editor = ace.edit("editor")
     this.editor.setTheme("ace/theme/eclipse");
     this.resetEditor();
+    // set mouse focus in ace editor
+    document.getElementsByTagName('textarea')[0].focus();
+
+    this.collaboration.init(this.editor, this.sessionId);
+    this.editor.lastAppliedChange = null;
+
+    // register change callback
+    this.editor.on('change', e => {
+      // e is an object, use JSON.stringfy to serialize it
+      console.log('editor changed: ' + JSON.stringify(e));
+      if (this.editor.lastAppliedChange != e) {
+        this.collaboration.change(JSON.stringify(e));
+      }
+    })
   }
 
   resetEditor(): void {
-    this.editor.getSession().setMode(`ace/mode/${this.language.toLocaleLowerCase()}`);
+    this.editor.getSession().setMode(`ace/mode/${this.language.toLowerCase()}`);
     this.editor.setValue(this.defaultContent[this.language]);
   }  
+
+  submit(): void {
+    const userCodes = this.editor.getValue();
+    console.log(userCodes);
+  }
 
 }
