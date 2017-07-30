@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Problem } from '../../data-structure/problem';
 
 @Component({
@@ -8,8 +8,9 @@ import { Problem } from '../../data-structure/problem';
 })
 export class ProblemListComponent implements OnInit {
   problems: Problem[] = [];
+  deleteProblemIndex: number;
 
-  constructor(@Inject('data') private dataService) { }
+  constructor( @Inject('data') private dataService) { }
 
   ngOnInit() {
     this.getProblems();
@@ -17,12 +18,16 @@ export class ProblemListComponent implements OnInit {
 
   getProblems() {
     this.dataService.getProblems()
-    .subscribe((problems: Problem[]) => this.problems = problems);
+      .subscribe((problems: Problem[]) => this.problems = problems);
   }
 
   deleteProblem(index: number) {
-    this.dataService.deleteProblem(this.problems[index])        
-        .catch(error => console.log(error));
+    this.dataService.deleteProblem(this.problems[index])
+      .catch(error => console.log(error));
   }
 
+  setDeleteProblemIndex(index: number) {
+    this.deleteProblemIndex = index;
+  };
+  
 }
