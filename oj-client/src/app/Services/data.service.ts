@@ -30,7 +30,7 @@ export class DataService {
 
   addProblem(problem: Problem) {
     const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({ headers: headers});
+    const options = new RequestOptions({ headers: headers });
     return this.http.post('api/v1/problems', problem, options)
                   .toPromise()
                   .then((res: Response) => {
