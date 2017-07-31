@@ -112,7 +112,7 @@ var EditorComponent = (function () {
     return EditorComponent;
 }());
 EditorComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* Component */])({
         selector: 'app-editor',
         template: __webpack_require__("../../../../../src/app/Components/editor/editor.component.html"),
         styles: [__webpack_require__("../../../../../src/app/Components/editor/editor.component.css")]
@@ -174,7 +174,7 @@ var NavbarComponent = (function () {
     return NavbarComponent;
 }());
 NavbarComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* Component */])({
         selector: 'app-navbar',
         template: __webpack_require__("../../../../../src/app/Components/navbar/navbar.component.html"),
         styles: [__webpack_require__("../../../../../src/app/Components/navbar/navbar.component.css")]
@@ -207,7 +207,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/new-problem/new-problem.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <form #formRef=\"ngForm\">\n        <div class=\"form-group\">\n            <label for=\"problem_name\">Problem Name</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"enter problem name\"\n                [(ngModel)]=\"newProblem.name\" \n                id=\"problem_name\"\n                name=\"problem_name\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_desc\">Problem Description</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"enter problem desc\" \n                [(ngModel)]=\"newProblem.desc\"\n                id=\"problem_desc\"\n                name=\"problem_desc\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_diff\">Difficulty</label>\n            <select class=\"form-control\" \n                    id=\"problem_diff\"\n                    name=\"problem_diff\"\n                    [(ngModel)]=\"newProblem.difficulty\">\n            <option [value]=\"difficulty\" \n                    *ngFor=\"let difficulty of difficulties\">\n                {{ difficulty }}\n            </option>\n            </select>\n        </div>\n        <div class=\"form-group row\">\n            <div class=\"col-md-12\">\n                <button type=\"submit\" \n                        (click)=\"addProblem()\"\n                        class=\"btn btn-primary pull-right\">Add</button>\n            </div>\n        </div>\n    </form>\n</div>\n"
+module.exports = "<div>\n    <form #formRef=\"ngForm\">\n        <div class=\"form-group\">\n            <label for=\"problem_name\">Problem Name</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"Please enter problem name\"\n                [(ngModel)]=\"newProblem.name\" \n                id=\"problem_name\"\n                name=\"problem_name\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_desc\">Problem Description</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"Please enter problem description\" \n                [(ngModel)]=\"newProblem.desc\"\n                id=\"problem_desc\"\n                name=\"problem_desc\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_diff\">Difficulty</label>\n            <select class=\"form-control\" \n                    id=\"problem_diff\"\n                    name=\"problem_diff\"\n                    [(ngModel)]=\"newProblem.difficulty\">\n            <option [value]=\"difficulty\" \n                    *ngFor=\"let difficulty of difficulties\">\n                {{ difficulty }}\n            </option>\n            </select>\n        </div>\n        <div class=\"form-group row\">\n            <div class=\"col-md-12\">\n                <button type=\"submit\" \n                        (click)=\"addProblem()\"\n                        class=\"btn btn-primary pull-right\">Add</button>\n            </div>\n        </div>\n    </form>\n</div>\n"
 
 /***/ }),
 
@@ -252,7 +252,7 @@ var NewProblemComponent = (function () {
     return NewProblemComponent;
 }());
 NewProblemComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* Component */])({
         selector: 'app-new-problem',
         template: __webpack_require__("../../../../../src/app/Components/new-problem/new-problem.component.html"),
         styles: [__webpack_require__("../../../../../src/app/Components/new-problem/new-problem.component.css")]
@@ -326,7 +326,7 @@ var ProblemDetailComponent = (function () {
     return ProblemDetailComponent;
 }());
 ProblemDetailComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* Component */])({
         selector: 'app-problem-detail',
         template: __webpack_require__("../../../../../src/app/Components/problem-detail/problem-detail.component.html"),
         styles: [__webpack_require__("../../../../../src/app/Components/problem-detail/problem-detail.component.css")]
@@ -361,7 +361,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/problem-list/problem-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <app-navbar></app-navbar>\n  <app-new-problem></app-new-problem>\n\n  <div class=\"list-group\">\n    <div class=\"list-group-item\" *ngFor=\"let problem of problems; let i = index\">\n      <a [routerLink]=\"['/problems', problem.id]\">\n            <span class=\"{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}\">{{ problem.difficulty }}</span>\n            <strong class=\"title\">{{ problem.id }}. {{ problem.name }}</strong>        \n      </a>\n      <!-- <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" (click)=\"deleteProblem(i)\"></span>  -->\n\n      <!-- Button trigger modal -->\n      <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" \n            (click)=setDeleteProblemIndex(i)\n            data-toggle=\"modal\" \n            data-target=\"#myModal\"\n            data-whatever=\"deleteProblemIndex\"></span>\n\n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog\" role=\"document\">\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                        </button>\n              <h4 class=\"modal-title\" id=\"myModalLabel\">Delete</h4>\n            </div>\n            <div class=\"modal-body\">\n              Are you sure you want to delete this problem?\n            </div>\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" (click)=\"deleteProblem(deleteProblemIndex)\">Delete</button>\n              <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <app-navbar></app-navbar>\n  <app-new-problem></app-new-problem>\n\n  <div class=\"list-group\">\n    <div class=\"list-group-item\" *ngFor=\"let problem of currentPageProblems; let i = index\">\n      <a [routerLink]=\"['/problems', problem.id]\">\n            <span class=\"{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}\">{{ problem.difficulty }}</span>\n            <strong class=\"title\">{{ problem.id }}. {{ problem.name }}</strong>        \n      </a>\n      <!-- <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" (click)=\"deleteProblem(i)\"></span>  -->\n\n      <!-- Button trigger modal -->\n      <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" (click)=setDeleteProblemIndex(i) data-toggle=\"modal\" data-target=\"#myModal\"></span>\n\n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog\" role=\"document\">\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                     <span aria-hidden=\"true\">&times;</span>\n              </button>\n              <h4 class=\"modal-title\" id=\"myModalLabel\">Delete</h4>\n            </div>\n            <div class=\"modal-body\">\n              Are you sure you want to delete this problem?\n            </div>\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" (click)=\"deleteProblem(deleteProblemIndex)\">Delete</button>\n              <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n  <md-paginator [length]=\"problems.length\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"pageSizeOptions\" (page)=\"changePage($event)\">\n  </md-paginator>\n</div>\n"
 
 /***/ }),
 
@@ -388,6 +388,12 @@ var ProblemListComponent = (function () {
     function ProblemListComponent(dataService) {
         this.dataService = dataService;
         this.problems = [];
+        this.currentPageProblems = [];
+        // MdPaginator Inputs
+        this.pageIndex = 0;
+        this.pageSize = 5;
+        this.pageLength = 10;
+        this.pageSizeOptions = [5, 10, 25, 100];
     }
     ProblemListComponent.prototype.ngOnInit = function () {
         this.getProblems();
@@ -395,20 +401,32 @@ var ProblemListComponent = (function () {
     ProblemListComponent.prototype.getProblems = function () {
         var _this = this;
         this.dataService.getProblems()
-            .subscribe(function (problems) { return _this.problems = problems; });
+            .subscribe(function (problems) {
+            _this.problems = problems;
+            var pageStartIndex = _this.pageIndex * _this.pageSize;
+            var pageEndIndex = pageStartIndex + _this.pageSize;
+            _this.currentPageProblems = _this.problems.slice(pageStartIndex, pageEndIndex);
+        });
     };
     ProblemListComponent.prototype.deleteProblem = function (index) {
-        this.dataService.deleteProblem(this.problems[index])
+        var deleteProblemIndex = this.pageIndex * this.pageSize + index;
+        this.dataService.deleteProblem(this.problems[deleteProblemIndex])
             .catch(function (error) { return console.log(error); });
     };
     ProblemListComponent.prototype.setDeleteProblemIndex = function (index) {
         this.deleteProblemIndex = index;
     };
-    ;
+    ProblemListComponent.prototype.changePage = function (page) {
+        var pageStartIndex = page.pageIndex * page.pageSize;
+        var pageEndIndex = pageStartIndex + page.pageSize;
+        this.pageIndex = page.pageIndex;
+        this.pageSize = page.pageSize;
+        this.currentPageProblems = this.problems.slice(pageStartIndex, pageEndIndex);
+    };
     return ProblemListComponent;
 }());
 ProblemListComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* Component */])({
         selector: 'app-problem-list',
         template: __webpack_require__("../../../../../src/app/Components/problem-list/problem-list.component.html"),
         styles: [__webpack_require__("../../../../../src/app/Components/problem-list/problem-list.component.css")]
@@ -623,7 +641,7 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* Component */])({
         selector: 'app-root',
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
@@ -642,15 +660,19 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Components_problem_list_problem_list_component__ = __webpack_require__("../../../../../src/app/Components/problem-list/problem-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Components_problem_detail_problem_detail_component__ = __webpack_require__("../../../../../src/app/Components/problem-detail/problem-detail.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Services_data_service__ = __webpack_require__("../../../../../src/app/Services/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Services_collaboration_service__ = __webpack_require__("../../../../../src/app/Services/collaboration.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Components_navbar_navbar_component__ = __webpack_require__("../../../../../src/app/Components/navbar/navbar.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Components_new_problem_new_problem_component__ = __webpack_require__("../../../../../src/app/Components/new-problem/new-problem.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Components_editor_editor_component__ = __webpack_require__("../../../../../src/app/Components/editor/editor.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_material__ = __webpack_require__("../../../material/@angular/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_hammerjs__ = __webpack_require__("../../../../hammerjs/hammer.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_hammerjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Components_problem_list_problem_list_component__ = __webpack_require__("../../../../../src/app/Components/problem-list/problem-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Components_problem_detail_problem_detail_component__ = __webpack_require__("../../../../../src/app/Components/problem-detail/problem-detail.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Services_data_service__ = __webpack_require__("../../../../../src/app/Services/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Services_collaboration_service__ = __webpack_require__("../../../../../src/app/Services/collaboration.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__Components_navbar_navbar_component__ = __webpack_require__("../../../../../src/app/Components/navbar/navbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__Components_new_problem_new_problem_component__ = __webpack_require__("../../../../../src/app/Components/new-problem/new-problem.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__Components_editor_editor_component__ = __webpack_require__("../../../../../src/app/Components/editor/editor.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -662,6 +684,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+// for angular material
+
+
+
+// Component import
 
 
 
@@ -681,27 +708,30 @@ var AppModule = (function () {
 AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_5__Components_problem_list_problem_list_component__["a" /* ProblemListComponent */],
-            __WEBPACK_IMPORTED_MODULE_6__Components_problem_detail_problem_detail_component__["a" /* ProblemDetailComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__Components_navbar_navbar_component__["a" /* NavbarComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__Components_new_problem_new_problem_component__["a" /* NewProblemComponent */],
-            __WEBPACK_IMPORTED_MODULE_12__Components_editor_editor_component__["a" /* EditorComponent */]
+            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_8__Components_problem_list_problem_list_component__["a" /* ProblemListComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__Components_problem_detail_problem_detail_component__["a" /* ProblemDetailComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__Components_navbar_navbar_component__["a" /* NavbarComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__Components_new_problem_new_problem_component__["a" /* NewProblemComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__Components_editor_editor_component__["a" /* EditorComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_9__app_routes__["a" /* routing */]
+            __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+            __WEBPACK_IMPORTED_MODULE_5__angular_material__["a" /* MdPaginatorModule */],
+            __WEBPACK_IMPORTED_MODULE_5__angular_material__["b" /* MdInputModule */],
+            __WEBPACK_IMPORTED_MODULE_12__app_routes__["a" /* routing */]
         ],
         providers: [
             {
                 provide: 'data',
-                useClass: __WEBPACK_IMPORTED_MODULE_7__Services_data_service__["a" /* DataService */]
+                useClass: __WEBPACK_IMPORTED_MODULE_10__Services_data_service__["a" /* DataService */]
             },
-            __WEBPACK_IMPORTED_MODULE_8__Services_collaboration_service__["a" /* CollaborationService */]
+            __WEBPACK_IMPORTED_MODULE_11__Services_collaboration_service__["a" /* CollaborationService */]
         ],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
 

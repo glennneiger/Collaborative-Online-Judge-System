@@ -3,7 +3,7 @@
   <app-new-problem></app-new-problem>
 
   <div class="list-group">
-    <div class="list-group-item" *ngFor="let problem of problems; let i = index">
+    <div class="list-group-item" *ngFor="let problem of currentPageProblems; let i = index">
       <a [routerLink]="['/problems', problem.id]">
             <span class="{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}">{{ problem.difficulty }}</span>
             <strong class="title">{{ problem.id }}. {{ problem.name }}</strong>        
@@ -11,11 +11,7 @@
       <!-- <span class="glyphicon glyphicon-remove pull-right remove-problem" (click)="deleteProblem(i)"></span>  -->
 
       <!-- Button trigger modal -->
-      <span class="glyphicon glyphicon-remove pull-right remove-problem" 
-            (click)=setDeleteProblemIndex(i)
-            data-toggle="modal" 
-            data-target="#myModal"
-            data-whatever="deleteProblemIndex"></span>
+      <span class="glyphicon glyphicon-remove pull-right remove-problem" (click)=setDeleteProblemIndex(i) data-toggle="modal" data-target="#myModal"></span>
 
       <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -23,8 +19,8 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
+                     <span aria-hidden="true">&times;</span>
+              </button>
               <h4 class="modal-title" id="myModalLabel">Delete</h4>
             </div>
             <div class="modal-body">
@@ -40,4 +36,6 @@
 
     </div>
   </div>
+  <md-paginator [length]="problems.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)">
+  </md-paginator>
 </div>
