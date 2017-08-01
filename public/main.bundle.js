@@ -361,7 +361,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/problem-list/problem-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <app-navbar></app-navbar>\n  <app-new-problem></app-new-problem>\n\n  <div class=\"list-group\">\n    <div class=\"list-group-item\" *ngFor=\"let problem of currentPageProblems; let i = index\">\n      <a [routerLink]=\"['/problems', problem.id]\">\n            <span class=\"{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}\">{{ problem.difficulty }}</span>\n            <strong class=\"title\">{{ problem.id }}. {{ problem.name }}</strong>        \n      </a>\n      <!-- <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" (click)=\"deleteProblem(i)\"></span>  -->\n\n      <!-- Button trigger modal -->\n      <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" (click)=setDeleteProblemIndex(i) data-toggle=\"modal\" data-target=\"#myModal\"></span>\n\n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog\" role=\"document\">\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                     <span aria-hidden=\"true\">&times;</span>\n              </button>\n              <h4 class=\"modal-title\" id=\"myModalLabel\">Delete</h4>\n            </div>\n            <div class=\"modal-body\">\n              Are you sure you want to delete this problem?\n            </div>\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" (click)=\"deleteProblem(deleteProblemIndex)\">Delete</button>\n              <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n  <md-paginator [length]=\"problems.length\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"pageSizeOptions\" (page)=\"changePage($event)\">\n  </md-paginator>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <app-navbar></app-navbar>\n  <app-new-problem></app-new-problem>\n\n  <!-- dropdown for filter of problems -->\n  <div class=\"form-group\">\n    <md-select placeholder=\"Please select a difficulty you want to filter\">\n      <md-option *ngFor=\"let difficulty of difficulties\" [value]=\"difficulty\">\n        {{ difficulty }}\n      </md-option>\n    </md-select>\n  </div>\n\n  <!-- list-group of problems -->\n  <div class=\"list-group\">\n    <div class=\"list-group-item\" *ngFor=\"let problem of currentPageProblems; let i = index\">\n      <a [routerLink]=\"['/problems', problem.id]\">\n            <span class=\"{{ 'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase() }}\">{{ problem.difficulty }}</span>\n            <strong class=\"title\">{{ problem.id }}. {{ problem.name }}</strong>        \n      </a>\n      <!-- <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" (click)=\"deleteProblem(i)\"></span>  -->\n\n      <!-- Button trigger modal -->\n      <span class=\"glyphicon glyphicon-remove pull-right remove-problem\" (click)=setDeleteProblemIndex(i) data-toggle=\"modal\" data-target=\"#myModal\"></span>\n\n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog\" role=\"document\">\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                     <span aria-hidden=\"true\">&times;</span>\n              </button>\n              <h4 class=\"modal-title\" id=\"myModalLabel\">Delete</h4>\n            </div>\n            <div class=\"modal-body\">\n              Are you sure you want to delete this problem?\n            </div>\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" (click)=\"deleteProblem(deleteProblemIndex)\">Delete</button>\n              <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n\n  <md-paginator [length]=\"problems.length\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"pageSizeOptions\" (page)=\"changePage($event)\">\n  </md-paginator>\n</div>\n"
 
 /***/ }),
 
@@ -389,6 +389,7 @@ var ProblemListComponent = (function () {
         this.dataService = dataService;
         this.problems = [];
         this.currentPageProblems = [];
+        this.difficulties = ['All', 'Easy', 'Medium', 'Hard', 'Super'];
         // MdPaginator Inputs
         this.pageIndex = 0;
         this.pageSize = 5;
@@ -403,6 +404,7 @@ var ProblemListComponent = (function () {
         this.dataService.getProblems()
             .subscribe(function (problems) {
             _this.problems = problems;
+            _this.sortProblems(_this.problems);
             var pageStartIndex = _this.pageIndex * _this.pageSize;
             var pageEndIndex = pageStartIndex + _this.pageSize;
             _this.currentPageProblems = _this.problems.slice(pageStartIndex, pageEndIndex);
@@ -422,6 +424,14 @@ var ProblemListComponent = (function () {
         this.pageIndex = page.pageIndex;
         this.pageSize = page.pageSize;
         this.currentPageProblems = this.problems.slice(pageStartIndex, pageEndIndex);
+    };
+    ProblemListComponent.prototype.sortProblems = function (problems) {
+        var sortedProblems = problems;
+        sortedProblems.sort(this.compareProblemById);
+        return sortedProblems;
+    };
+    ProblemListComponent.prototype.compareProblemById = function (problem_a, problem_b) {
+        return problem_a.id && problem_b.id ? problem_a.id - problem_b.id : 0;
     };
     return ProblemListComponent;
 }());
@@ -722,6 +732,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_material__["a" /* MdPaginatorModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_material__["b" /* MdInputModule */],
+            __WEBPACK_IMPORTED_MODULE_5__angular_material__["c" /* MdSelectModule */],
             __WEBPACK_IMPORTED_MODULE_12__app_routes__["a" /* routing */]
         ],
         providers: [

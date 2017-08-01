@@ -10,6 +10,7 @@ export class ProblemListComponent implements OnInit {
   problems: Problem[] = [];
   currentPageProblems: Problem[] = [];
   deleteProblemIndex: number;
+  difficulties: string[] = ['All', 'Easy', 'Medium', 'Hard', 'Super'];
 
   // MdPaginator Inputs
   pageIndex: number = 0;
@@ -28,6 +29,7 @@ export class ProblemListComponent implements OnInit {
     this.dataService.getProblems()
       .subscribe((problems: Problem[]) => { 
         this.problems = problems;
+        this.sortProblems(this.problems);
         const pageStartIndex = this.pageIndex * this.pageSize;
         const pageEndIndex = pageStartIndex + this.pageSize;
         this.currentPageProblems = this.problems.slice(pageStartIndex, pageEndIndex);
@@ -50,6 +52,16 @@ export class ProblemListComponent implements OnInit {
     this.pageIndex = page.pageIndex;
     this.pageSize = page.pageSize;
     this.currentPageProblems = this.problems.slice(pageStartIndex, pageEndIndex);
+  }
+
+  sortProblems(problems): Problem[] {
+    let sortedProblems = problems;
+    sortedProblems.sort(this.compareProblemById);
+    return sortedProblems;
+  }
+
+  compareProblemById(problem_a, problem_b) {
+    return problem_a.id && problem_b.id ? problem_a.id - problem_b.id : 0;
   }
   
 }

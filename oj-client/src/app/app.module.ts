@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 // for angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdInputModule, MdPaginatorModule } from '@angular/material';
+import { MdInputModule, MdPaginatorModule, MdSelectModule } from '@angular/material';
 import 'hammerjs';
 
 // Component import
@@ -39,6 +39,7 @@ import { EditorComponent } from './Components/editor/editor.component';
     BrowserAnimationsModule,
     MdPaginatorModule,
     MdInputModule,
+    MdSelectModule,
     routing
   ],
   providers: [

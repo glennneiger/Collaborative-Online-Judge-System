@@ -2,6 +2,16 @@
   <app-navbar></app-navbar>
   <app-new-problem></app-new-problem>
 
+  <!-- dropdown for filter of problems -->
+  <div class="form-group">
+    <md-select placeholder="Please select a difficulty you want to filter">
+      <md-option *ngFor="let difficulty of difficulties" [value]="difficulty">
+        {{ difficulty }}
+      </md-option>
+    </md-select>
+  </div>
+
+  <!-- list-group of problems -->
   <div class="list-group">
     <div class="list-group-item" *ngFor="let problem of currentPageProblems; let i = index">
       <a [routerLink]="['/problems', problem.id]">
@@ -36,6 +46,7 @@
 
     </div>
   </div>
+
   <md-paginator [length]="problems.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)">
   </md-paginator>
 </div>
