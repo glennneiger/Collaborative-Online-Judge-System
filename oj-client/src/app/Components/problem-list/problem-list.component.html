@@ -4,6 +4,7 @@
   <!-- dropdown for filter of problems -->
   <div class="form-group">
     <md-select placeholder="Please select a difficulty you want to filter">
+      <!-- <md-option>All</md-option> -->
       <md-option *ngFor="let difficulty of difficulties" [value]="difficulty">
         {{ difficulty }}
       </md-option>
