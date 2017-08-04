@@ -286,7 +286,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/problem-detail/problem-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" *ngIf=\"problem\">\n  <app-navbar></app-navbar>\n  <div class=\"col-xs-12 col-md-4\">\n    <h2>{{ problem.id }}. {{ problem.name }}</h2>\n    <p>{{ problem.desc }}</p>\n  </div>\n  <div class=\"hidden-xs col-xs-12 col-md-8\">\n    <app-editor></app-editor>\n  </div>\n</div>"
+module.exports = "<div class=\"container\" *ngIf=\"problem\">\n  <div class=\"col-xs-12 col-md-4\">\n    <h2>{{ problem.id }}. {{ problem.name }}</h2>\n    <p>{{ problem.desc }}</p>\n  </div>\n  <div class=\"hidden-xs col-xs-12 col-md-8\">\n    <app-editor></app-editor>\n  </div>\n</div>"
 
 /***/ }),
 
