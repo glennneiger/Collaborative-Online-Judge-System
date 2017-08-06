@@ -100,6 +100,7 @@ var EditorComponent = (function () {
             console.log('cursor move', JSON.stringify(cursor));
             _this.collaboration.cursorMove(JSON.stringify(cursor));
         });
+        this.collaboration.restoreBuffer();
     };
     EditorComponent.prototype.resetEditor = function () {
         this.editor.getSession().setMode("ace/mode/" + this.language.toLowerCase());
@@ -474,6 +475,7 @@ var CollaborationService = (function () {
     }
     CollaborationService.prototype.init = function (editor, sessionId) {
         var _this = this;
+        // handshake send sessionId
         this.collaborationSocket = io(window.location.origin, { query: "sessionId=" + sessionId });
         this.collaborationSocket.on('change', function (delta) {
             console.log('collaboration: editor changes by ' + delta);
@@ -511,6 +513,9 @@ var CollaborationService = (function () {
     };
     CollaborationService.prototype.cursorMove = function (cursor) {
         this.collaborationSocket.emit('cursorMove', cursor);
+    };
+    CollaborationService.prototype.restoreBuffer = function () {
+        this.collaborationSocket.emit('restoreBuffer');
     };
     return CollaborationService;
 }());
