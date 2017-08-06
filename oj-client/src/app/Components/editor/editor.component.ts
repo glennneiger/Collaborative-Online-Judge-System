@@ -13,6 +13,7 @@ export class EditorComponent implements OnInit {
   language: string = 'Java';
   languages: string[] = ['Java', 'Python', 'JavaScript'];
   sessionId: string;
+  output: string = '';
   defaultContent = {
 'Java': `public class Solution {
   public static void main(String[] args) {
