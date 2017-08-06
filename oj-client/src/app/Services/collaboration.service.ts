@@ -12,7 +12,8 @@ export class CollaborationService {
   constructor() { }
 
   init(editor: any, sessionId: string): void {
-    this.collaborationSocket = io(window.location.origin, { query: `sessionId=${ sessionId }` });
+    // handshake send sessionId
+    this.collaborationSocket = io(window.location.origin, { query: `sessionId=${sessionId}` });
 
     this.collaborationSocket.on('change', (delta: string) => {
       console.log('collaboration: editor changes by ' + delta);
@@ -56,6 +57,10 @@ export class CollaborationService {
 
   cursorMove(cursor: string): void {
     this.collaborationSocket.emit('cursorMove', cursor);
+  }
+
+  restoreBuffer(): void {
+    this.collaborationSocket.emit('restoreBuffer');
   }
 
 }

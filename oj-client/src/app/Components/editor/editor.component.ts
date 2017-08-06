@@ -67,6 +67,8 @@ export class EditorComponent implements OnInit {
       console.log('cursor move', JSON.stringify(cursor));
       this.collaboration.cursorMove(JSON.stringify(cursor));
     });
+
+    this.collaboration.restoreBuffer();
   }
 
   resetEditor(): void {
