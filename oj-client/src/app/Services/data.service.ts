@@ -15,30 +15,30 @@ export class DataService {
 
   getProblems(): Observable<Problem[]> {
     this.http.get('api/v1/problems')
-            .toPromise()
-            .then((res: Response) => this._problemSource.next(res.json()))
-            .catch(this.handleError);
+        .toPromise()
+        .then((res: Response) => this._problemSource.next(res.json()))
+        .catch(this.handleError);
     return this._problemSource.asObservable();            
   }
 
   getProblem(id: number) {
     return this.http.get(`api/v1/problems/${id}`)
-          .toPromise()
-          .then((res: Response) => res.json())
-          .catch(this.handleError);
+                .toPromise()
+                .then((res: Response) => res.json())
+                .catch(this.handleError);
   }
 
   addProblem(problem: Problem) {
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({ headers: headers });
     return this.http.post('api/v1/problems', problem, options)
-                  .toPromise()
-                  .then((res: Response) => {
-                    // to update problem-list
-                    this.getProblems();
-                    return res.json();
-                  })
-                  .catch(this.handleError);
+                .toPromise()
+                .then((res: Response) => {
+                  // to update problem-list
+                  this.getProblems();
+                  return res.json();
+                })
+                .catch(this.handleError);
   }
 
   deleteProblem(problem: Problem) {
@@ -46,17 +46,31 @@ export class DataService {
       { params: { id: problem.id } }
     );
     return this.http.delete(`api/v1/problems/${problem.id}`, options)
-                  .toPromise()
-                  .then((res: Response) => {
-                    this.getProblems();
-                    return res.json();
-                  })
-                  .catch(this.handleError);
+                .toPromise()
+                .then((res: Response) => {
+                  this.getProblems();
+                  return res.json();
+                })
+                .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
     console.log('An error occured', error);
     return Promise.reject(error);
+  }
+
+  build_and_run(data: any): Promise<Object> {
+    const headers = new Headers({ 
+      'Content-Type': 'application/json'
+    });
+    const options = new RequestOptions({ headers: headers })
+    return this.http.post(`api/v1/build_and_run`, data, options)
+                .toPromise()
+                .then((res: Response) => {
+                  console.log('in client side build and run', res);
+                  return res.json();
+                })
+                .catch(this.handleError);
   }
 
 }

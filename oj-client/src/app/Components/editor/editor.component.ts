@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { CollaborationService } from 'app/Services/collaboration.service';
 
@@ -33,7 +33,8 @@ export class EditorComponent implements OnInit {
   
   constructor(
     private collaboration: CollaborationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject('data') private dataServive
   ) { }
 
   ngOnInit() {
@@ -75,11 +76,19 @@ export class EditorComponent implements OnInit {
   resetEditor(): void {
     this.editor.getSession().setMode(`ace/mode/${this.language.toLowerCase()}`);
     this.editor.setValue(this.defaultContent[this.language]);
+    this.output = '';
   }  
 
   submit(): void {
+    this.output = '';
     const userCodes = this.editor.getValue();
-    console.log(userCodes);
+    // console.log(userCodes);
+    const code =  {
+      userCodes: userCodes,
+      lang: this.language.toLocaleLowerCase()
+    };
+    this.dataServive.build_and_run(code)
+        .then(res => this.output = res.text);
   }
 
 
