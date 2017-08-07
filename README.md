@@ -1,6 +1,7 @@
 # Collaborative-Online-Judge-System
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0.
+First clone this repo to your local machine, then at the directory of your local repo, run `npm install` to download all dependencies. In order to run the program successfully, you need to install python, redis, docker on your machine.
 
 ## Development server
 
