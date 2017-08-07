@@ -43,6 +43,7 @@ def load_image():
         client.images.pull(IMAGE_NAME)
     except APIError:
         print 'image not found'
+        return
     print 'image loaded'
 
 
@@ -66,17 +67,17 @@ def build_and_run(code, lang):
 
     make_dir(source_file_host_dir)
 
-    # write codes
+    # write codes to file
     with open('%s/%s' % (source_file_host_dir, SOURCE_FILE_NAMES[lang]), 'w') as source_file:
         source_file.write(code)
 
     # build in docker
     try: 
         client.containers.run(
-            image = IMAGE_NAME,
-            command = '%s %s' % (BUILD_COMMANDS[lang], SOURCE_FILE_NAMES[lang]),
-            volumes = {source_file_host_dir: {'bind': source_file_guest_dir, 'mode': 'rw'}}, # passing data between containers, it's like a store space
-            working_dir = source_file_guest_dir
+            image=IMAGE_NAME,
+            command='%s %s' % (BUILD_COMMANDS[lang], SOURCE_FILE_NAMES[lang]),
+            volumes={source_file_host_dir: {'bind': source_file_guest_dir, 'mode': 'rw'}},
+            working_dir=source_file_guest_dir
         )
         print 'source built'
         result['build'] = 'ok'
@@ -89,10 +90,10 @@ def build_and_run(code, lang):
     # run in docker
     try: 
         log = client.containers.run(
-            image = IMAGE_NAME,
-            command = '%s %s' % (EXECUTE_COMMANDS[lang], BINARY_NAMES),
-            volumes = {source_file_host_dir: {'bind': source_file_guest_dir, 'mode': 'rw'}},
-            working_dir = source_file_guest_dir
+            image=IMAGE_NAME,
+            command='%s %s' % (EXECUTE_COMMANDS[lang], BINARY_NAMES[lang]),
+            volumes={source_file_host_dir: {'bind': source_file_guest_dir, 'mode': 'rw'}},
+            working_dir=source_file_guest_dir
         )
         print 'executed'
         result['run'] = log
