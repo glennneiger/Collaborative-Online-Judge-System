@@ -15,9 +15,9 @@ export class DataService {
 
   getProblems(): Observable<Problem[]> {
     this.http.get('api/v1/problems')
-        .toPromise()
-        .then((res: Response) => this._problemSource.next(res.json()))
-        .catch(this.handleError);
+          .toPromise()
+          .then((res: Response) => this._problemSource.next(res.json()))
+          .catch(this.handleError);
     return this._problemSource.asObservable();            
   }
 
@@ -59,7 +59,7 @@ export class DataService {
     return Promise.reject(error);
   }
 
-  build_and_run(data: any): Promise<Object> {
+  buildAndRun(data: any): Promise<Object> {
     const headers = new Headers({ 
       'Content-Type': 'application/json'
     });

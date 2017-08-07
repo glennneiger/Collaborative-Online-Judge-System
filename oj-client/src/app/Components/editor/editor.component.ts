@@ -87,7 +87,7 @@ export class EditorComponent implements OnInit {
       userCodes: userCodes,
       lang: this.language.toLocaleLowerCase()
     };
-    this.dataServive.build_and_run(code)
+    this.dataServive.buildAndRun(code)
         .then(res => this.output = res.text);
   }
 

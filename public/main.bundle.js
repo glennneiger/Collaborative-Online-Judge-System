@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/editor/editor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section>\n  <header>\n    <!-- dropdown for selecting languages -->\n    <select name=\"language\" \n            id=\"language\" \n            class=\"form-control pull-left lang-select row\"\n            [(ngModel)]=\"language\"\n            (change)=\"resetEditor()\">\n            <option *ngFor=\"let language of languages\"\n                    [value]=\"language\">\n              {{ language }}\n            </option>\n    </select>\n\n    <!-- Button trigger modal -->\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\">\n      <span class=\"glyphicon glyphicon-refresh\" aria-hidden=\"true\"></span>\n    </button>\n\n    <!-- Modal -->\n    <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n      <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span>\n            </button>\n            <h4 class=\"modal-title\" id=\"myModalLabel\">Reset</h4>\n          </div>\n          <div class=\"modal-body\">\n            Are you sure you want to reset your code?\n          </div>\n          <div class=\"modal-footer\">\n            <button type=\"button\" \n                    class=\"btn btn-primary\" \n                    data-dismiss=\"modal\" \n                    (click)=\"resetEditor()\">Reset</button>\n            <button type=\"button\" \n                    class=\"btn btn-default\"\n                    data-dismiss=\"modal\" >Cancel</button>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </header>\n  <div class=\"row\">\n      <div id=\"editor\"></div>\n  </div>\n  <footer>\n    <button class=\"btn btn-success pull-right\"\n            (click)=\"submit()\">\n      Submit Solution\n    </button>\n  </footer>\n</section>"
+module.exports = "<section>\n  <header>\n    <!-- dropdown for selecting languages -->\n    <select name=\"language\" \n            id=\"language\" \n            class=\"form-control pull-left lang-select row\"\n            [(ngModel)]=\"language\"\n            (change)=\"resetEditor()\">\n            <option *ngFor=\"let language of languages\"\n                    [value]=\"language\">\n              {{ language }}\n            </option>\n    </select>\n\n    <!-- Button trigger modal -->\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\">\n      <span class=\"glyphicon glyphicon-refresh\" aria-hidden=\"true\"></span>\n    </button>\n\n    <!-- Modal -->\n    <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n      <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span>\n            </button>\n            <h4 class=\"modal-title\" id=\"myModalLabel\">Reset</h4>\n          </div>\n          <div class=\"modal-body\">\n            Are you sure you want to reset your code?\n          </div>\n          <div class=\"modal-footer\">\n            <button type=\"button\" \n                    class=\"btn btn-primary\" \n                    data-dismiss=\"modal\" \n                    (click)=\"resetEditor()\">Reset</button>\n            <button type=\"button\" \n                    class=\"btn btn-default\"\n                    data-dismiss=\"modal\" >Cancel</button>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </header>\n  <div class=\"row\">\n      <div id=\"editor\"></div>\n      <div>{{ output }}</div>\n  </div>\n  <footer>\n    <button class=\"btn btn-success pull-right\"\n            (click)=\"submit()\">\n      Submit Solution\n    </button>\n  </footer>\n</section>"
 
 /***/ }),
 
@@ -55,15 +55,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 
 
 
 var EditorComponent = (function () {
-    function EditorComponent(collaboration, route) {
+    function EditorComponent(collaboration, route, dataServive) {
         this.collaboration = collaboration;
         this.route = route;
+        this.dataServive = dataServive;
         this.language = 'Java';
         this.languages = ['Java', 'Python', 'JavaScript'];
+        this.output = '';
         this.defaultContent = {
             'Java': "public class Solution {\n  public static void main(String[] args) {\n    // Type your Java Code here\n\n  }\n}",
             'Python': "class Solution:\n  def solution(): \n    # Write your Python Code here\n",
@@ -105,10 +110,19 @@ var EditorComponent = (function () {
     EditorComponent.prototype.resetEditor = function () {
         this.editor.getSession().setMode("ace/mode/" + this.language.toLowerCase());
         this.editor.setValue(this.defaultContent[this.language]);
+        this.output = '';
     };
     EditorComponent.prototype.submit = function () {
+        var _this = this;
+        this.output = '';
         var userCodes = this.editor.getValue();
-        console.log(userCodes);
+        // console.log(userCodes);
+        var code = {
+            userCodes: userCodes,
+            lang: this.language.toLocaleLowerCase()
+        };
+        this.dataServive.buildAndRun(code)
+            .then(function (res) { return _this.output = res.text; });
     };
     return EditorComponent;
 }());
@@ -118,7 +132,8 @@ EditorComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/Components/editor/editor.component.html"),
         styles: [__webpack_require__("../../../../../src/app/Components/editor/editor.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_app_Services_collaboration_service__["a" /* CollaborationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_app_Services_collaboration_service__["a" /* CollaborationService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
+    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["f" /* Inject */])('data')),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_app_Services_collaboration_service__["a" /* CollaborationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_app_Services_collaboration_service__["a" /* CollaborationService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object, Object])
 ], EditorComponent);
 
 var _a, _b;
@@ -598,6 +613,19 @@ var DataService = (function () {
     DataService.prototype.handleError = function (error) {
         console.log('An error occured', error);
         return Promise.reject(error);
+    };
+    DataService.prototype.buildAndRun = function (data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({
+            'Content-Type': 'application/json'
+        });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
+        return this.http.post("api/v1/build_and_run", data, options)
+            .toPromise()
+            .then(function (res) {
+            console.log('in client side build and run', res);
+            return res.json();
+        })
+            .catch(this.handleError);
     };
     return DataService;
 }());

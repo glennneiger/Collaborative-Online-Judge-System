@@ -38,6 +38,14 @@ router.delete('/problems/:id', function (req, res) {
     }, function (err) {
         res.status(400).send('Cannot find problem to delete');
     });
+}); 
+
+// build and run
+router.post('/build_and_run', jsonParser, function (req, res) {
+    const userCodes = req.body.userCodes;
+    const lang = req.body.lang;
+    console.log(lang + ' ' + userCodes);
+    res.json({'text': 'hello from nodejs'});
 });
 
 module.exports = router;
