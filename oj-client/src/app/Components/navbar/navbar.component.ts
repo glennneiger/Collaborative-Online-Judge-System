@@ -7,14 +7,24 @@ import { AuthService } from '../../Services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  title: string = 'COJ';
+  profile: any;
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService) {
+    this.auth.userProfile.subscribe(
+      profile => this.profile = profile
+    );
+  }
 
   ngOnInit() {
   }
 
   login(): void {
     this.auth.login();
+  }
+
+  logout(): void {
+    this.auth.logout();
   }
 
 }
