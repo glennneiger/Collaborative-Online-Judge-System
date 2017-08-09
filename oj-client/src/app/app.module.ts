@@ -14,6 +14,7 @@ import { ProblemListComponent } from './Components/problem-list/problem-list.com
 import { ProblemDetailComponent } from './Components/problem-detail/problem-detail.component';
 
 // Service import 
+import { AuthService } from './Services/auth.service';
 import { DataService } from './Services/data.service';
 import { CollaborationService } from './Services/collaboration.service';
 
@@ -43,6 +44,7 @@ import { EditorComponent } from './Components/editor/editor.component';
     routing
   ],
   providers: [
+    AuthService,
     {
       provide: 'data',
       useClass: DataService
