@@ -21,7 +21,11 @@
       <!-- <span class="glyphicon glyphicon-remove pull-right remove-problem" (click)="deleteProblem(i)"></span>  -->
 
       <!-- Button trigger modal -->
-      <span class="glyphicon glyphicon-remove pull-right remove-problem" (click)=setDeleteProblemIndex(i) data-toggle="modal" data-target="#myModal"></span>
+      <span class="glyphicon glyphicon-remove pull-right remove-problem" 
+            *ngIf="auth.isAdmin()"
+            (click)=setDeleteProblemIndex(i) 
+            data-toggle="modal" 
+            data-target="#myModal"></span>
 
       <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
