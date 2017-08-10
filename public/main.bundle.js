@@ -162,7 +162,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <nav class=\"navbar navbar-default\">\n    <div class=\"container-fluid\">\n      <!-- Brand and toggle get grouped for better mobile display -->\n      <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\"\n          aria-expanded=\"false\">\n                <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n        <a class=\"navbar-brand\" href=\"#\">{{ title }}</a>\n      </div>\n\n      <!-- Collect the nav links, forms, and other content for toggling -->\n      <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n        <form class=\"navbar-form navbar-left\">\n          <div class=\"form-group\">\n            <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n          </div>\n          <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n        </form>\n        <ul class=\"nav navbar-nav navbar-right\">\n          <li *ngIf=\"!auth.isAuthenticated()\">\n            <form class=\"navbar-form\">\n              <button type=\"button\" class=\"btn btn-primary\" (click)=\"login()\">Sign in</button>\n            </form>\n          </li>\n          <li class=\"dropdown\" *ngIf=\"auth.isAuthenticated()\">\n            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              {{ profile?.name }}\n              <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\">\n              <li><a href=\"#\">My Profile</a></li>\n              <li><a href=\"#\">My Favorites</a></li>\n              <li><a href=\"#\">My Submissions</a></li>\n              <li role=\"separator\" class=\"divider\"></li>\n              <li><a (click)=\"logout()\">Log out</a></li>\n            </ul>\n          </li>\n        </ul>\n      </div>\n      <!-- /.navbar-collapse -->\n    </div>\n    <!-- /.container-fluid -->\n  </nav>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <nav class=\"navbar navbar-default\">\n    <div class=\"container-fluid\">\n      <!-- Brand and toggle get grouped for better mobile display -->\n      <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\"\n          aria-expanded=\"false\">\n                <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n        <a class=\"navbar-brand\" href=\"#\">{{ title }}</a>\n      </div>\n\n      <!-- Collect the nav links, forms, and other content for toggling -->\n      <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n        <form class=\"navbar-form navbar-left\">\n          <div class=\"form-group\">\n            <input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n          </div>\n          <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n        </form>\n        <ul class=\"nav navbar-nav navbar-right\">\n          <li *ngIf=\"!auth.isAuthenticated()\">\n            <form class=\"navbar-form\">\n              <button type=\"button\" class=\"btn btn-primary\" (click)=\"login()\">Sign in</button>\n            </form>\n          </li>\n          <li class=\"dropdown\" *ngIf=\"auth.isAuthenticated()\">\n            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              {{ profile?.name }}\n              <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\">\n              <li><a href=\"#\">My Profile</a></li>\n              <li><a href=\"#\">My Favorites</a></li>\n              <li><a href=\"#\">My Submissions</a></li>\n              <li role=\"separator\" class=\"divider\"></li>\n              <li><a href=\"#\" (click)=\"logout()\">Log out</a></li>\n            </ul>\n          </li>\n        </ul>\n      </div>\n      <!-- /.navbar-collapse -->\n    </div>\n    <!-- /.container-fluid -->\n  </nav>\n</div>\n"
 
 /***/ }),
 
@@ -236,7 +236,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/Components/new-problem/new-problem.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <form #formRef=\"ngForm\">\n        <div class=\"form-group\">\n            <label for=\"problem_name\">Problem Name</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"Please enter problem name\"\n                [(ngModel)]=\"newProblem.name\" \n                id=\"problem_name\"\n                name=\"problem_name\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_desc\">Problem Description</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"Please enter problem description\" \n                [(ngModel)]=\"newProblem.desc\"\n                id=\"problem_desc\"\n                name=\"problem_desc\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_diff\">Difficulty</label>\n            <select class=\"form-control\" \n                    id=\"problem_diff\"\n                    name=\"problem_diff\"\n                    [(ngModel)]=\"newProblem.difficulty\">\n            <option [value]=\"difficulty\" \n                    *ngFor=\"let difficulty of difficulties\">\n                {{ difficulty }}\n            </option>\n            </select>\n        </div>\n        <div class=\"form-group row\">\n            <div class=\"col-md-12\">\n                <button type=\"submit\" \n                        (click)=\"addProblem()\"\n                        class=\"btn btn-primary pull-right\">Add</button>\n            </div>\n        </div>\n    </form>\n</div>\n"
+module.exports = "<div *ngIf=\"auth.isAuthenticated() && auth.isAdmin()\">\n    <form #formRef=\"ngForm\">\n        <div class=\"form-group\">\n            <label for=\"problem_name\">Problem Name</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"Please enter problem name\"\n                [(ngModel)]=\"newProblem.name\" \n                id=\"problem_name\"\n                name=\"problem_name\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_desc\">Problem Description</label>\n            <input type=\"text\" \n                class=\"form-control\" \n                placeholder=\"Please enter problem description\" \n                [(ngModel)]=\"newProblem.desc\"\n                id=\"problem_desc\"\n                name=\"problem_desc\"\n                required>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"problem_diff\">Difficulty</label>\n            <select class=\"form-control\" \n                    id=\"problem_diff\"\n                    name=\"problem_diff\"\n                    [(ngModel)]=\"newProblem.difficulty\">\n            <option [value]=\"difficulty\" \n                    *ngFor=\"let difficulty of difficulties\">\n                {{ difficulty }}\n            </option>\n            </select>\n        </div>\n        <div class=\"form-group row\">\n            <div class=\"col-md-12\">\n                <button type=\"submit\" \n                        (click)=\"addProblem()\"\n                        class=\"btn btn-primary pull-right\">Add</button>\n            </div>\n        </div>\n    </form>\n</div>\n"
 
 /***/ }),
 
@@ -245,6 +245,7 @@ module.exports = "<div>\n    <form #formRef=\"ngForm\">\n        <div class=\"fo
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Services_auth_service__ = __webpack_require__("../../../../../src/app/Services/auth.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewProblemComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -259,6 +260,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 
+
 var DEFAULT_PROBLEM = Object.freeze({
     id: 0,
     name: '',
@@ -266,8 +268,9 @@ var DEFAULT_PROBLEM = Object.freeze({
     difficulty: 'Easy'
 });
 var NewProblemComponent = (function () {
-    function NewProblemComponent(data) {
+    function NewProblemComponent(data, auth) {
         this.data = data;
+        this.auth = auth;
         this.difficulties = ['Easy', 'Medium', 'Hard', 'Super'];
         this.newProblem = Object.assign({}, DEFAULT_PROBLEM);
     }
@@ -287,9 +290,10 @@ NewProblemComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/Components/new-problem/new-problem.component.css")]
     }),
     __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["f" /* Inject */])('data')),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__Services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__Services_auth_service__["a" /* AuthService */]) === "function" && _a || Object])
 ], NewProblemComponent);
 
+var _a;
 //# sourceMappingURL=new-problem.component.js.map
 
 /***/ }),
@@ -399,6 +403,7 @@ module.exports = "<div class=\"container\">\n  <app-new-problem></app-new-proble
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Services_auth_service__ = __webpack_require__("../../../../../src/app/Services/auth.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProblemListComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -413,16 +418,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 
+
 var ProblemListComponent = (function () {
-    function ProblemListComponent(dataService) {
+    function ProblemListComponent(dataService, auth) {
         this.dataService = dataService;
+        this.auth = auth;
         this.problems = [];
         this.currentPageProblems = [];
         this.difficulties = ['All', 'Easy', 'Medium', 'Hard', 'Super'];
         // MdPaginator Inputs
         this.pageIndex = 0;
-        this.pageSize = 5;
-        this.pageLength = 10;
+        this.pageSize = 10;
         this.pageSizeOptions = [5, 10, 25, 100];
     }
     ProblemListComponent.prototype.ngOnInit = function () {
@@ -471,9 +477,10 @@ ProblemListComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/Components/problem-list/problem-list.component.css")]
     }),
     __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["f" /* Inject */])('data')),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__Services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__Services_auth_service__["a" /* AuthService */]) === "function" && _a || Object])
 ], ProblemListComponent);
 
+var _a;
 //# sourceMappingURL=problem-list.component.js.map
 
 /***/ }),
@@ -492,6 +499,8 @@ ProblemListComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/add/operator/toPromise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_auth0_lock__ = __webpack_require__("../../../../auth0-lock/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_auth0_lock___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_auth0_lock__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -508,10 +517,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+var AUTH0_CLIENTID = 'r2F3TiAFQy1OUq1G06RyhOtLW1vmaNOi';
+var AUTH0_DOMAIN = 'jackiewang5566.auth0.com';
 var AuthService = (function () {
     function AuthService(router) {
         this.router = router;
         this.userProfile = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["BehaviorSubject"](undefined);
+        this.userInfo = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["BehaviorSubject"](undefined);
+        this.lock = new __WEBPACK_IMPORTED_MODULE_6_auth0_lock___default.a(AUTH0_CLIENTID, AUTH0_DOMAIN);
         this.auth0 = new __WEBPACK_IMPORTED_MODULE_3_auth0_js__["WebAuth"]({
             clientID: 'r2F3TiAFQy1OUq1G06RyhOtLW1vmaNOi',
             domain: 'jackiewang5566.auth0.com',
@@ -524,6 +538,7 @@ var AuthService = (function () {
     }
     AuthService.prototype.getProfile = function () {
         var accessToken = localStorage.getItem('access_token');
+        var idToken = localStorage.getItem('id_token');
         if (!accessToken) {
             throw new Error('Access token must exist to fetch profile');
         }
@@ -533,6 +548,12 @@ var AuthService = (function () {
                 self.userProfile.next(profile);
                 localStorage.setItem('profile', JSON.stringify(profile));
             }
+        });
+        this.lock.getProfile(idToken, function (err, userInfo) {
+            if (err) {
+                throw new Error(err);
+            }
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
         });
     };
     AuthService.prototype.login = function () {
@@ -566,6 +587,7 @@ var AuthService = (function () {
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
         localStorage.removeItem('profile');
+        localStorage.removeItem('userInfo');
         // Go back to the home route
         this.router.navigate(['/']);
     };
@@ -574,6 +596,14 @@ var AuthService = (function () {
         // access token's expiry time
         var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         return new Date().getTime() < expiresAt;
+    };
+    // Check whether user is admin or not
+    AuthService.prototype.isAdmin = function () {
+        var is_admin = false;
+        var userInfo = null;
+        userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        is_admin = userInfo && userInfo.app_metadata ? userInfo.app_metadata.is_admin : false;
+        return is_admin;
     };
     return AuthService;
 }());

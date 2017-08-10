@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
 
 // for angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +23,7 @@ import { routing } from './app.routes';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { NewProblemComponent } from './Components/new-problem/new-problem.component';
 import { EditorComponent } from './Components/editor/editor.component';
+
 
 @NgModule({
   declarations: [

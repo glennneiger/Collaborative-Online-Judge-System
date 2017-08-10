@@ -9,6 +9,8 @@ import { AuthService } from '../../Services/auth.service';
 export class NavbarComponent implements OnInit {
   title: string = 'COJ';
   profile: any;
+  userInfo: any;
+  is_admin: boolean;
 
   constructor(private auth: AuthService) {
     this.auth.userProfile.subscribe(

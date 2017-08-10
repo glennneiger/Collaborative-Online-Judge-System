@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Problem } from '../../data-structure/problem';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-problem-list',
@@ -14,12 +15,14 @@ export class ProblemListComponent implements OnInit {
 
   // MdPaginator Inputs
   pageIndex: number = 0;
-  pageSize: number = 5;
-  pageLength: number = 10;
+  pageSize: number = 10;
   pageSizeOptions = [5, 10, 25, 100];
  
 
-  constructor( @Inject('data') private dataService) { }
+  constructor( 
+    @Inject('data') private dataService,
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
     this.getProblems();

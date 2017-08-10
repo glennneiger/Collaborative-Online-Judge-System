@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Problem } from 'app/data-structure/problem';
+import { AuthService } from '../../Services/auth.service';
 
 const DEFAULT_PROBLEM: Problem = Object.freeze({
   id: 0,
@@ -16,7 +17,10 @@ export class NewProblemComponent implements OnInit {
   difficulties: string[] = ['Easy', 'Medium', 'Hard', 'Super'];
   newProblem: Problem = Object.assign({}, DEFAULT_PROBLEM);
 
-  constructor(@Inject('data') private data) { }
+  constructor(
+    @Inject('data') private data,
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
   }
